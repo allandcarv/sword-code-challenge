@@ -1,0 +1,18 @@
+@import '@/assets/styles/colors.scss';
+
+.btn {
+  border: 0;
+  cursor: pointer;
+
+  &.btn-primary {
+    background-color: $blue;
+  }
+
+  &.btn-secondary {
+    background-color: $green;
+  }
+
+  &:disabled {
+    background-color: #C4BDBD;
+  }
+}

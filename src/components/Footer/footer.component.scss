@@ -1,0 +1,142 @@
+@import '@/assets/styles/breakpoints.scss';
+@import '@/assets/styles/buttons.scss';
+@import '@/assets/styles/colors.scss';
+@import '@/assets/styles/variables.scss';
+
+footer {
+  padding: 60px 0;
+  background-color: $light-grey;
+
+  section {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+
+    h1 {
+      font-weight: normal;
+      text-align: center;
+      line-height: 5rem;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 2.5rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: text-decoration .2s;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.in__touch {
+
+      .social__medias {
+        display: flex;
+        place-content: center;
+        margin-bottom: 20px;
+        
+        a {
+      
+          & + a {
+            margin-left: 10px;
+          }
+
+          img {
+            width: 40px;
+            height: 40px;
+            transition: transform .2s;
+
+            &:hover {
+              transform: scale(1.2);
+            }
+           
+          }
+        }
+      }
+
+      .newsletter {
+        display: flex;
+        place-content: center;
+
+        input {
+          width: 70%;
+          height: 35px;
+          padding: 0 10px;
+          border: 1px solid #C4BDBD;
+          border-right: none;
+          font-size: 1.1rem;
+
+          &::placeholder {
+            color: #C4BDBD;
+          }
+        }
+
+        button {
+          width: 50px;
+          height: 35px;
+          padding: 5px 10px;
+          
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $small) {
+  footer {
+    padding: $container_padding_small;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+@media only screen and (min-width: $large) {
+  footer {
+    padding: $container_padding_large;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+@media only screen and (min-width: $xlarge) {
+  footer {
+    padding: $container_padding_xlarge;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+
+    section {
+      flex: 1;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      h1 {
+        text-align: left;
+      }
+
+      p {
+        text-align: left;
+      }
+
+      &.in__touch {
+
+        .newsletter {
+          justify-content: flex-start;
+        }
+      }
+    }
+
+  }
+}

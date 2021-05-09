@@ -1,12 +1,14 @@
 <template>
   <Header />
   <Profile />
+  <Footer />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
 // Components
+import Footer from './components/Footer/footer.component.vue';
 import Header from './components/Header/header.component.vue';
 
 // Views
@@ -14,6 +16,7 @@ import Profile from './views/Profile/profile.component.vue';
 
 @Options({
   components: {
+    Footer,
     Header,
     Profile,
   },
