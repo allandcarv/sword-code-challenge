@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <Profile />
+  <Game />
   <Footer />
 </template>
 
@@ -12,13 +12,13 @@ import Footer from './components/Footer/footer.component.vue';
 import Header from './components/Header/header.component.vue';
 
 // Views
-import Profile from './views/Profile/profile.component.vue';
+import Game from './views/Game/game.component.vue';
 
 @Options({
   components: {
     Footer,
     Header,
-    Profile,
+    Game,
   },
 })
 export default class App extends Vue {}
