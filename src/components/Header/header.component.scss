@@ -1,0 +1,52 @@
+@import '@/assets/styles/colors.scss';
+
+header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: $grey;
+
+  img {
+    width: 50%;
+    height: auto;
+    max-height: 100%;
+  }
+
+  .title {
+
+    p {
+      font-family: 'GlacialBold', sans-serif;
+      font-size: 4vw;
+
+      &:last-of-type {
+        font-family: 'GlacialItalic', sans-serif;
+        text-align: right;
+      }
+    }
+  } 
+}
+
+@media only screen and (min-width: 576px) {
+  header {
+    height: 100px;
+
+    img {
+      width: 200px;
+    }
+
+    .title {
+
+      p {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  header {
+    padding: 0 200px;
+  }
+}

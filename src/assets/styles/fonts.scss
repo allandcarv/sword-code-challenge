@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'GlacialRegular';
+  src: local('GlacialRegular'),
+       url('~@/assets/fonts/glacialindifference-regular-webfont.ttf') format('truetype'),
+       url('~@/assets/fonts/glacialindifference-regular-webfont.woff') format('woff'),
+       url('~@/assets/fonts/glacialindifference-regular-webfont.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GlacialBold';
+  src: local('GlacialBold'),
+       url('~@/assets/fonts/glacialindifference-bold-webfont.ttf') format('truetype'),
+       url('~@/assets/fonts/glacialindifference-bold-webfont.woff') format('woff'),
+       url('~@/assets/fonts/glacialindifference-bold-webfont.woff2') format('woff2');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'GlacialItalic';
+  src: local('GlacialItalic'),
+       url('~@/assets/fonts/glacialindifference-italic-webfont.woff') format('woff'),
+       url('~@/assets/fonts/glacialindifference-italic-webfont.woff2') format('woff2');
+  font-style: italic;
+}
