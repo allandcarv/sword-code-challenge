@@ -1,7 +1,12 @@
+@import '@/assets/styles/breakpoints.scss';
 @import '@/assets/styles/colors.scss';
+@import '@/assets/styles/variables.scss';
 
 header {
+  position: fixed;
+  top: 0;
   height: 80px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,9 +33,10 @@ header {
   } 
 }
 
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: $small) {
   header {
     height: 100px;
+    padding: $container_padding_small;
 
     img {
       width: 200px;
@@ -45,8 +51,14 @@ header {
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: $large) {
   header {
-    padding: 0 200px;
+    padding: $container_padding_large;
+  }
+}
+
+@media only screen and (min-width: $xlarge) {
+  header {
+    padding: $container_padding_xlarge;
   }
 }
