@@ -1,5 +1,9 @@
 <template>
   <Profile :profile="playerProfile" />
+  <Board
+    :gameData="gameData"
+    @gameType="setGameType"
+  />
 </template>
 
 <script src="./game.component.ts" lang="ts"></script>
