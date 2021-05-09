@@ -1,5 +1,7 @@
 import { Options, Vue } from 'vue-class-component';
 
+import * as toast from '@/utils/toast';
+
 @Options({
   name: 'Footer',
 })
@@ -7,7 +9,7 @@ export default class Footer extends Vue {
   public email = '';
 
   public handleSubmit(): void {
-    console.log(`Email: ${this.email}`);
     this.email = '';
+    toast.success('You are subscribed');
   }
 }
