@@ -8,8 +8,10 @@ import Statistics from '@/components/Statistics/statistics.component.vue';
 // Interfaces
 import { IGameData } from '@/interfaces/game-data.interface';
 import { IProfile } from '@/interfaces/profile.interface';
+import { IWinnerEvent } from '@/interfaces/winner-event.interface';
 
 import profilePhoto from '@/assets/images/thanos.jpg';
+import { ITimer } from '@/interfaces/timer.interface';
 
 @Options({
   name: 'Game',
@@ -41,9 +43,42 @@ export default class Game extends Vue {
     },
     gamesPlayed: 0,
     totalWins: 5,
+    totalTime: {
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    },
   }
 
   setGameType(type: number): void {
     this.gameData.type = type;
+  }
+
+  setGameWinner(event: IWinnerEvent): void {
+    if (event.player === 1) this.gameData.firstPlayer.wins += 1;
+
+    if (event.player === 2) this.gameData.secondPlayer.wins += 1;
+
+    this.setTotalTime(event.timer);
+  }
+
+  setTotalTime(timer: ITimer): void {
+    let seconds = timer.seconds + this.gameData.totalTime.seconds;
+    let minutes = timer.minutes + this.gameData.totalTime.minutes;
+    let hours = timer.hours + this.gameData.totalTime.hours;
+
+    if (seconds >= 60) {
+      minutes += seconds / 60;
+      seconds %= 60;
+    }
+
+    if (minutes >= 60) {
+      hours += minutes / 60;
+      minutes %= 60;
+    }
+
+    this.gameData.totalTime.seconds = seconds;
+    this.gameData.totalTime.minutes = minutes;
+    this.gameData.totalTime.hours = hours;
   }
 }

@@ -43,7 +43,7 @@
     </article>
     <article class="time">
       <p><strong>Total time</strong></p>
-      <p>00:44:12</p>
+      <p> {{ totalTime }}</p>
     </article>
   </section>
 </template>

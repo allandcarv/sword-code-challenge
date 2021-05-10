@@ -4,8 +4,9 @@
     <Board
       :gameData="gameData"
       @gameType="setGameType"
+      @winner="setGameWinner"
     />
-    <Statistics />
+    <Statistics :gameData="gameData" />
   </main>
 </template>
 

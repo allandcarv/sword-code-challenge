@@ -1,4 +1,5 @@
 import { IPlayer } from './player.interface';
+import { ITimer } from './timer.interface';
 
 export interface IGameData {
   type: number;
@@ -6,4 +7,5 @@ export interface IGameData {
   secondPlayer: IPlayer;
   totalWins: number;
   gamesPlayed: number;
+  totalTime: ITimer
 }
