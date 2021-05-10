@@ -253,6 +253,10 @@ export default class Board extends Vue {
   }
 
   startCounter(): void {
+    this.timer.seconds = 0;
+    this.timer.minutes = 0;
+    this.timer.hours = 0;
+
     this.counter = setInterval(() => {
       if (this.timer.seconds === 59) {
         if (this.timer.minutes === 59) {
