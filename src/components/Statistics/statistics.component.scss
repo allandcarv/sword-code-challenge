@@ -144,7 +144,9 @@
       .history__square {
         width: 30px;
         height: 30px;
+        line-height: 30px;
         border: 2px solid $dark-grey;
+        font-size: 1.2rem;
 
         & + .history__square {
           margin-left: 5px;

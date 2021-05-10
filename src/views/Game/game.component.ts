@@ -59,6 +59,8 @@ export default class Game extends Vue {
 
     if (event.player === 2) this.gameData.secondPlayer.wins += 1;
 
+    this.gameData.gamesPlayed += 1;
+
     this.setTotalTime(event.timer);
   }
 

@@ -7,24 +7,24 @@
     <article class="victories">
       <p><strong>Game victories %</strong></p>
       <section class="player">
-        <p>Player 1</p>
+        <p>{{ getPlayerName(1) }}</p>
         <div>
-          <span class="percent">39%</span>
+          <span class="percent">{{getPercentPlayer(1)}}%</span>
           <span class="label">V</span>
         </div>
          <div>
-          <span class="percent">61%</span>
+          <span class="percent">{{getPercentPlayer(2)}}%</span>
           <span class="label">L</span>
         </div>
       </section>
       <section class="player">
-        <p>Player 2</p>
+        <p>{{ getPlayerName(2) }}</p>
         <div>
-          <span class="percent">61%</span>
+          <span class="percent">{{getPercentPlayer(2)}}%</span>
           <span class="label">V</span>
         </div>
          <div>
-          <span class="percent">39%</span>
+          <span class="percent">{{getPercentPlayer(1)}}%</span>
           <span class="label">L</span>
         </div>
       </section>
@@ -32,13 +32,19 @@
     <article class="matchs">
       <p><strong>Played matchs</strong></p>
       <div class="match__circles">
-        <span class="match__circle" v-for="index in 9" :key="index"></span>
+        <span
+          class="match__circle"
+          v-for="index in 9"
+          :key="index"
+          :class="getPlayedClass(index) ? 'matched' : ''"></span>
       </div>
     </article>
     <article class="history">
       <p><strong>Game history</strong></p>
       <div class="history__squares">
-         <span class="history__square" v-for="index in 9" :key="index"></span>
+         <span class="history__square" v-for="index in 9" :key="index">
+           {{ getGameHistory(index) }}
+         </span>
       </div>
     </article>
     <article class="time">
