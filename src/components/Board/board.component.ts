@@ -10,6 +10,7 @@ import oDark from '@/assets/images/O_dark.svg';
 import xBright from '@/assets/images/X_bright.svg';
 import xDark from '@/assets/images/X_dark.svg';
 
+type GameStatus = 'paused' | 'stopped' | 'started';
 @Options({
   name: 'Board',
   props: {
@@ -34,6 +35,8 @@ export default class Board extends Vue {
   gameArray = new Array(9).fill(0);
 
   gameData!: IGameData;
+
+  gameStatus: GameStatus = 'started';
 
   gameWinnerIndexes = new Array(3).fill(-1);
 
@@ -66,6 +69,7 @@ export default class Board extends Vue {
         alert(`player ${this.playerOnTurn} wins`);
         const indexes = Array.from({ length: 3 }, (_, idx) => i + idx);
         this.gameWinnerIndexes = [...indexes];
+        this.gameStatus = 'stopped';
         break;
       }
     }
@@ -79,6 +83,7 @@ export default class Board extends Vue {
       if (column.every((player) => player === this.playerOnTurn)) {
         alert(`player ${this.playerOnTurn} wins`);
         this.gameWinnerIndexes = [i, i + indexRange, i + indexRange * 2];
+        this.gameStatus = 'stopped';
         break;
       }
     }
@@ -92,6 +97,7 @@ export default class Board extends Vue {
     if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
       alert(`player ${this.playerOnTurn} wins`);
       this.gameWinnerIndexes = [0, 4, 8];
+      this.gameStatus = 'stopped';
     }
 
     const secondDiagonal = [
@@ -103,6 +109,7 @@ export default class Board extends Vue {
     if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
       alert(`player ${this.playerOnTurn} wins`);
       this.gameWinnerIndexes = [2, 4, 6];
+      this.gameStatus = 'stopped';
     }
   }
 
@@ -117,6 +124,7 @@ export default class Board extends Vue {
         alert(`player ${this.playerOnTurn} wins`);
         const indexes = Array.from({ length: 4 }, (_, idx) => i + idx);
         this.gameWinnerIndexes = [...indexes];
+        this.gameStatus = 'stopped';
         break;
       }
     }
@@ -136,6 +144,7 @@ export default class Board extends Vue {
           i + indexRange * 2,
           i + indexRange * 3,
         ];
+        this.gameStatus = 'stopped';
         break;
       }
     }
@@ -150,6 +159,7 @@ export default class Board extends Vue {
     if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
       alert(`player ${this.playerOnTurn} wins`);
       this.gameWinnerIndexes = [0, 5, 10, 15];
+      this.gameStatus = 'stopped';
     }
 
     const secondDiagonal = [
@@ -162,6 +172,7 @@ export default class Board extends Vue {
     if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
       alert(`player ${this.playerOnTurn} wins`);
       this.gameWinnerIndexes = [3, 6, 9, 12];
+      this.gameStatus = 'stopped';
     }
   }
 
@@ -188,8 +199,6 @@ export default class Board extends Vue {
   getPlayerImage(index: number): string {
     const player = this.gameArray ? this.gameArray[index] : 0;
 
-    console.log(this.gameWinnerIndexes);
-
     switch (player) {
       case 1: return this.gameWinnerIndexes.includes(index) ? xBright : xDark;
       case 2: return this.gameWinnerIndexes.includes(index) ? oBright : oDark;
@@ -198,8 +207,10 @@ export default class Board extends Vue {
   }
 
   setPlayer(index: number): void {
-    this.gameArray[index] = this.playerOnTurn;
-    this.getWinner();
-    this.playerOnTurn = this.playerOnTurn === 1 ? 2 : 1;
+    if (this.gameStatus === 'started') {
+      this.gameArray[index] = this.playerOnTurn;
+      this.getWinner();
+      this.playerOnTurn = this.playerOnTurn === 1 ? 2 : 1;
+    }
   }
 }

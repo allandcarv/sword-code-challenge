@@ -5,6 +5,7 @@
       :gameData="gameData"
       @gameType="setGameType"
     />
+    <Statistics />
   </main>
 </template>
 

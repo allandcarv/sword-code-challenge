@@ -3,6 +3,7 @@ import { Options, Vue } from 'vue-class-component';
 // Components
 import Board from '@/components/Board/board.component.vue';
 import Profile from '@/components/Profile/profile.component.vue';
+import Statistics from '@/components/Statistics/statistics.component.vue';
 
 // Interfaces
 import { IGameData } from '@/interfaces/game-data.interface';
@@ -15,6 +16,7 @@ import profilePhoto from '@/assets/images/thanos.jpg';
   components: {
     Board,
     Profile,
+    Statistics,
   },
 })
 export default class Game extends Vue {
