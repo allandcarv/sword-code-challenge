@@ -24,13 +24,27 @@
           <img :src="getPlayerImage(index - 1)" alt="" srcset="">
         </div>
       </section>
+      <button
+        class="btn"
+        type="button"
+        :class="gameStarted ? 'started' : 'stopped'"
+        @click="setGame()"
+      >
+        {{ gameStarted ? 'Stop' : 'Start' }} Game
+      </button>
     </article>
     <article class="game__statistics">
       <section class="player">
         <p>{{ gameData.firstPlayer.name }}</p>
         <p>{{ gameData.firstPlayer.wins }}</p>
       </section>
-      <section class="timer">00:00:00</section>
+      <section class="timer">
+        {{
+          `${timer.hours}`.padStart(2, '0')
+          + ':' +
+          `${timer.minutes}`.padStart(2, '0')
+          + ':' +
+          `${timer.seconds}`.padStart(2, '0')}}</section>
       <section class="player">
         <p>{{ gameData.secondPlayer.name }}</p>
         <p>{{ gameData.secondPlayer.wins }}</p>

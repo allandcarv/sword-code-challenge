@@ -10,7 +10,7 @@ import oDark from '@/assets/images/O_dark.svg';
 import xBright from '@/assets/images/X_bright.svg';
 import xDark from '@/assets/images/X_dark.svg';
 
-type GameStatus = 'paused' | 'stopped' | 'started';
+type GameStatus = 'stopped' | 'started';
 @Options({
   name: 'Board',
   props: {
@@ -19,28 +19,26 @@ type GameStatus = 'paused' | 'stopped' | 'started';
       required: true,
     },
   },
-  watch: {
-    gameData: {
-      deep: true,
-      handler(gameData) {
-        this.gameArray = gameData.type === 1 ? new Array(9).fill(0) : new Array(16).fill(0);
-        this.gameWinnerIndexes = gameData.type === 1
-          ? new Array(3).fill(-1)
-          : new Array(4).fill(-1);
-      },
-    },
-  },
+
 })
 export default class Board extends Vue {
-  gameArray = new Array(9).fill(0);
+  counter = 0;
+
+  gameArray: number[] = []
 
   gameData!: IGameData;
 
-  gameStatus: GameStatus = 'started';
+  gameStatus: GameStatus = 'stopped';
 
-  gameWinnerIndexes = new Array(3).fill(-1);
+  gameWinnerIndexes!: number[];
 
   playerOnTurn = 1;
+
+  timer = {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  }
 
   get gameClass(): string {
     switch (this.gameData.type) {
@@ -56,6 +54,10 @@ export default class Board extends Vue {
       case 2: return 4 * 4;
       default: return 0;
     }
+  }
+
+  get gameStarted(): boolean {
+    return this.gameStatus === 'started';
   }
 
   private checkFirstTypeGame(): void {
@@ -109,6 +111,14 @@ export default class Board extends Vue {
     if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
       alert(`player ${this.playerOnTurn} wins`);
       this.gameWinnerIndexes = [2, 4, 6];
+      this.gameStatus = 'stopped';
+    }
+
+    const lastMove = this.gameArray.every((index) => index !== 0);
+    const hasWinner = this.gameWinnerIndexes.every((index) => index !== -1);
+
+    if (lastMove && !hasWinner) {
+      alert('Draw Game');
       this.gameStatus = 'stopped';
     }
   }
@@ -174,6 +184,14 @@ export default class Board extends Vue {
       this.gameWinnerIndexes = [3, 6, 9, 12];
       this.gameStatus = 'stopped';
     }
+
+    const lastMove = this.gameArray.every((index) => index !== 0);
+    const hasWinner = this.gameWinnerIndexes.every((index) => index !== -1);
+
+    if (lastMove && !hasWinner) {
+      alert('Draw Game');
+      this.gameStatus = 'stopped';
+    }
   }
 
   getGameType(): number {
@@ -193,6 +211,18 @@ export default class Board extends Vue {
   }
 
   setGameType(type: number): void {
+    this.gameArray = type === 1
+      ? new Array(9).fill(0)
+      : new Array(16).fill(0);
+
+    this.gameWinnerIndexes = type === 1
+      ? new Array(3).fill(-1)
+      : new Array(4).fill(-1);
+
+    this.playerOnTurn = 1;
+
+    this.gameStatus = 'stopped';
+
     this.$emit('gameType', type);
   }
 
@@ -212,5 +242,52 @@ export default class Board extends Vue {
       this.getWinner();
       this.playerOnTurn = this.playerOnTurn === 1 ? 2 : 1;
     }
+  }
+
+  setGame(): void {
+    if (this.gameStatus === 'started') {
+      this.stopGame();
+    } else {
+      this.startGame();
+    }
+  }
+
+  startCounter(): void {
+    this.counter = setInterval(() => {
+      if (this.timer.seconds === 59) {
+        if (this.timer.minutes === 59) {
+          this.timer.hours += 1;
+          this.timer.minutes = 0;
+          this.timer.seconds = 0;
+        } else {
+          this.timer.minutes += 1;
+          this.timer.seconds = 0;
+        }
+      } else {
+        this.timer.seconds += 1;
+      }
+    }, 1000);
+  }
+
+  startGame(): void {
+    this.gameArray = this.gameData.type === 1
+      ? new Array(9).fill(0)
+      : new Array(16).fill(0);
+
+    this.gameWinnerIndexes = this.gameData.type === 1
+      ? new Array(3).fill(-1)
+      : new Array(4).fill(-1);
+
+    this.playerOnTurn = 1;
+
+    this.gameStatus = 'started';
+
+    this.startCounter();
+  }
+
+  stopGame(): void {
+    this.gameStatus = 'stopped';
+
+    clearInterval(this.counter);
   }
 }

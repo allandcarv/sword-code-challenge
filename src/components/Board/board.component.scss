@@ -1,4 +1,5 @@
 @import '@/assets/styles/breakpoints.scss';
+@import '@/assets/styles/buttons.scss';
 @import '@/assets/styles/colors.scss';
 @import '@/assets/styles/variables.scss';
 
@@ -55,13 +56,14 @@ $grid_border: 2px solid $blue;
   }
 
   .game__area {
-    height: 55vh;
+    margin-bottom: 20px;
 
     .game__board {
-      height: 100%;
+      height: 55vh;
       display: grid;
-      background-color: $blue;
+      background-color: $dark-grey;
       gap: 2px;
+      border: 1px solid $dark-grey;
 
       &.game-3 {
         grid-template-columns: repeat(3, 1fr);
@@ -85,6 +87,22 @@ $grid_border: 2px solid $blue;
         }
       }
 
+    }
+
+    button {
+      width: 60%;
+      height: 50px;
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px;
+      font-family: 'GlacialBold', sans-serif;
+      font-size: 1.3rem;
+      color: $white;
+      background-color: $green;
+
+      &.started {
+        background-color: $red;
+      }      
     }
   }
 
