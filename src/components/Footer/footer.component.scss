@@ -4,7 +4,9 @@
 @import '@/assets/styles/variables.scss';
 
 footer {
-  padding: 60px 10px;
+  padding: $container_padding_xsmall;
+  padding-top: 60px;
+  padding-bottom: 60px;
   background-color: $light-grey;
 
   section {

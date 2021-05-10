@@ -14,6 +14,13 @@
         >4-in-a-row</span>
       </p>
     </article>
+    <article class="game__area">
+      <section class="game__board" :class="gameClass">
+        <div class="game__square" v-for="index in gameSize" :key="index">
+          <img src="@/assets/images/O_dark.svg" alt="" srcset="">
+        </div>
+      </section>
+    </article>
     <article class="game__statistics">
       <section class="player">
         <p>{{ gameData.firstPlayer.name }}</p>

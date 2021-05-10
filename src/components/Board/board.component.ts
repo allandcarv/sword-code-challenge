@@ -15,6 +15,22 @@ import { IGameData } from '@/interfaces/game-data.interface';
 export default class Board extends Vue {
   gameData!: IGameData;
 
+  get gameSize(): number {
+    switch (this.gameData.type) {
+      case 1: return 3 * 3;
+      case 2: return 4 * 4;
+      default: return 0;
+    }
+  }
+
+  get gameClass(): string {
+    switch (this.gameData.type) {
+      case 1: return 'game-3';
+      case 2: return 'game-4';
+      default: return '';
+    }
+  }
+
   getGameType(): number {
     return this.gameData.type;
   }

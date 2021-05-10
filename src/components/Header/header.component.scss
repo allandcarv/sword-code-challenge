@@ -5,7 +5,7 @@
 header {
   position: fixed;
   top: 0;
-  height: 80px;
+  height: $header_height_xsmall;
   width: 100%;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@ header {
 
 @media only screen and (min-width: $small) {
   header {
-    height: 100px;
+    height: $header_height_small;
     padding: $container_padding_small;
 
     img {

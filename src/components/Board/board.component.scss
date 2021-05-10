@@ -1,9 +1,15 @@
+@import '@/assets/styles/breakpoints.scss';
 @import '@/assets/styles/colors.scss';
+@import '@/assets/styles/variables.scss';
+
+$grid_border: 2px solid $blue;
 
 .board {
   width: 100%;
-  height: 100%;
-  padding: 40px 10px;
+  min-height: 100vh;
+  padding: $container_padding_xsmall;
+  padding-top: 40px;
+  padding-bottom: 40px;
   background-color: $light-grey;
 
   h1 {
@@ -48,6 +54,39 @@
     }
   }
 
+  .game__area {
+    height: 55vh;
+
+    .game__board {
+      height: 100%;
+      display: grid;
+      background-color: $blue;
+      gap: 2px;
+
+      &.game-3 {
+        grid-template-columns: repeat(3, 1fr);
+       
+      }
+
+      &.game-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .game__square {
+        display: flex;
+        place-content: center;
+        background-color: $white;
+        cursor: pointer;
+
+        img {
+          width: 80%;
+          height: auto;
+        }
+      }
+
+    }
+  }
+
   .game__statistics {
     display: flex;
     justify-content: space-between;
@@ -60,7 +99,7 @@
         text-align: center;
 
         & + p {
-          margin-top: 10px;;
+          margin-top: 10px;
           font-size: 2.5rem;
         }
       }
@@ -69,5 +108,21 @@
     .timer {
       font-size: 1.3rem;
     }
+  }
+}
+
+@media only screen and (min-width: $large) {
+  .board {
+    padding: $container_padding_large;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+@media only screen and (min-width: $xlarge) {
+  .board {
+    padding: $container_padding_xlarge;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 }
