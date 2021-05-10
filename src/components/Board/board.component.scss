@@ -65,11 +65,12 @@ $grid_border: 2px solid $blue;
 
       &.game-3 {
         grid-template-columns: repeat(3, 1fr);
-       
+        grid-template-rows: repeat(3, 1fr);
       }
 
       &.game-4 {
         grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
       }
 
       .game__square {

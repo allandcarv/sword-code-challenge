@@ -16,8 +16,12 @@
     </article>
     <article class="game__area">
       <section class="game__board" :class="gameClass">
-        <div class="game__square" v-for="index in gameSize" :key="index">
-          <img src="@/assets/images/O_dark.svg" alt="" srcset="">
+        <div
+          class="game__square"
+          v-for="index in gameSize"
+          :key="index"
+          @click="setPlayer(index - 1)">
+          <img :src="getPlayerImage(index - 1)" alt="" srcset="">
         </div>
       </section>
     </article>
