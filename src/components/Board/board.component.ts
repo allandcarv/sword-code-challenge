@@ -59,6 +59,12 @@ export default class Board extends Vue {
     return this.gameStatus === 'started';
   }
 
+  get totalTime(): string {
+    const { seconds, minutes, hours } = this.timer;
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
   private checkFirstTypeGame(): void {
     const indexRange = 3;
     const lastIndex = 3 * 3 - 1;

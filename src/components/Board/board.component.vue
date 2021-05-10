@@ -39,12 +39,7 @@
         <p>{{ gameData.firstPlayer.wins }}</p>
       </section>
       <section class="timer">
-        {{
-          `${timer.hours}`.padStart(2, '0')
-          + ':' +
-          `${timer.minutes}`.padStart(2, '0')
-          + ':' +
-          `${timer.seconds}`.padStart(2, '0')}}</section>
+        {{ totalTime }}</section>
       <section class="player">
         <p>{{ gameData.secondPlayer.name }}</p>
         <p>{{ gameData.secondPlayer.wins }}</p>
