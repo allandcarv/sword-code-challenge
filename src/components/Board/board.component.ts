@@ -33,8 +33,6 @@ export default class Board extends Vue {
 
   gameWinnerIndexes!: number[];
 
-  gamesPlayed = 0;
-
   playerOnTurn = 1;
 
   timer = {
@@ -49,6 +47,14 @@ export default class Board extends Vue {
       case 2: return 'game-4';
       default: return '';
     }
+  }
+
+  get totalGamesPlayed(): number {
+    if (this.gameData) {
+      return this.gameData.totalGamesPlayed;
+    }
+
+    return 0;
   }
 
   get gameSize(): number {
@@ -134,7 +140,7 @@ export default class Board extends Vue {
     if (lastMove && !hasWinner) {
       toast.info('Draw Game');
       this.stopGame();
-      this.gamesPlayed += 1;
+      this.emitGameResult();
     }
 
     return hasWinner;
@@ -252,9 +258,9 @@ export default class Board extends Vue {
     return false;
   }
 
-  emitGameWinner(): void {
-    this.$emit('winner', {
-      player: this.playerOnTurn,
+  emitGameResult(hasWinner?: boolean): void {
+    this.$emit('gameResult', {
+      winner: hasWinner ? this.playerOnTurn : 0,
       timer: this.timer,
     });
   }
@@ -299,8 +305,7 @@ export default class Board extends Vue {
     toast.info(`${this.getPlayerName(this.playerOnTurn)} wins`);
     this.gameWinnerIndexes = [...indexes];
     this.stopGame();
-    this.emitGameWinner();
-    this.gamesPlayed += 1;
+    this.emitGameResult(true);
   }
 
   startCounter(): void {
@@ -336,6 +341,8 @@ export default class Board extends Vue {
     this.playerOnTurn = 1;
 
     this.gameStatus = 'started';
+
+    this.$emit('gameStarted');
 
     this.startCounter();
   }

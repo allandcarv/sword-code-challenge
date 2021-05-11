@@ -7,5 +7,7 @@ export interface IGameData {
   secondPlayer: IPlayer;
   totalWins: number;
   gamesPlayed: number;
+  totalGamesPlayed: number;
+  hasWinner: boolean;
   totalTime: ITimer
 }

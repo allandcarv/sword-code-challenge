@@ -8,7 +8,7 @@ import Statistics from '@/components/Statistics/statistics.component.vue';
 // Interfaces
 import { IGameData } from '@/interfaces/game-data.interface';
 import { IProfile } from '@/interfaces/profile.interface';
-import { IWinnerEvent } from '@/interfaces/winner-event.interface';
+import { IGameResult } from '@/interfaces/game-result-event.interface';
 
 import profilePhoto from '@/assets/images/thanos.jpg';
 import { ITimer } from '@/interfaces/timer.interface';
@@ -42,30 +42,48 @@ export default class Game extends Vue {
       wins: 0,
     },
     gamesPlayed: 0,
+    totalGamesPlayed: 0,
     totalWins: 5,
     totalTime: {
       hours: 0,
       minutes: 0,
       seconds: 0,
     },
+    hasWinner: false,
+  }
+
+  handleGameStarted(): void {
+    if (this.gameData.hasWinner) {
+      this.gameData.hasWinner = false;
+
+      this.gameData.gamesPlayed = 0;
+
+      this.gameData.firstPlayer.wins = 0;
+
+      this.gameData.secondPlayer.wins = 0;
+    }
   }
 
   setGameType(type: number): void {
     this.gameData.type = type;
   }
 
-  setGameWinner(event: IWinnerEvent): void {
+  handleGameResult(event: IGameResult): void {
     const { firstPlayer, secondPlayer } = this.gameData;
 
-    if (event.player === 1) this.gameData.firstPlayer.wins += 1;
+    if (event?.winner === 1) this.gameData.firstPlayer.wins += 1;
 
-    if (event.player === 2) this.gameData.secondPlayer.wins += 1;
+    if (event?.winner === 2) this.gameData.secondPlayer.wins += 1;
 
-    this.gameData.gamesPlayed += 1;
+    if (event.winner) this.gameData.gamesPlayed += 1;
+
+    this.gameData.totalGamesPlayed += 1;
 
     this.setTotalTime(event.timer);
 
     if (firstPlayer.wins === 5 || secondPlayer.wins === 5) {
+      this.gameData.hasWinner = true;
+
       const el = this.$el.querySelector('.statistics');
 
       el.scrollIntoView({ behavior: 'smooth' });

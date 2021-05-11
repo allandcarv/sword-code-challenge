@@ -40,7 +40,7 @@
       </section>
       <section class="game">
         <p class="timer">{{ totalTime }}</p>
-        <p class="games__played">{{ gamesPlayed }}</p>
+        <p class="games__played">{{ totalGamesPlayed }}</p>
       </section>
       <section class="player">
         <p :class="playerOnTurn === 2 ? 'on__turn' : ''">{{ gameData.secondPlayer.name }}</p>

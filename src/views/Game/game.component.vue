@@ -3,8 +3,9 @@
     <Profile :profile="playerProfile" />
     <Board
       :gameData="gameData"
+      @gameStarted="handleGameStarted"
       @gameType="setGameType"
-      @winner="setGameWinner"
+      @gameResult="handleGameResult"
     />
     <Statistics :gameData="gameData" ref="statistics" />
   </main>
