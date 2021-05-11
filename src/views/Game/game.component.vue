@@ -6,7 +6,7 @@
       @gameType="setGameType"
       @winner="setGameWinner"
     />
-    <Statistics :gameData="gameData" />
+    <Statistics :gameData="gameData" ref="statistics" />
   </main>
 </template>
 

@@ -55,6 +55,8 @@ export default class Game extends Vue {
   }
 
   setGameWinner(event: IWinnerEvent): void {
+    const { firstPlayer, secondPlayer } = this.gameData;
+
     if (event.player === 1) this.gameData.firstPlayer.wins += 1;
 
     if (event.player === 2) this.gameData.secondPlayer.wins += 1;
@@ -62,6 +64,12 @@ export default class Game extends Vue {
     this.gameData.gamesPlayed += 1;
 
     this.setTotalTime(event.timer);
+
+    if (firstPlayer.wins === 5 || secondPlayer.wins === 5) {
+      const el = this.$el.querySelector('.statistics');
+
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   setTotalTime(timer: ITimer): void {
