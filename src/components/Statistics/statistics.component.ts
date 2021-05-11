@@ -10,33 +10,9 @@ import { IGameData } from '@/interfaces/game-data.interface';
       required: true,
     },
   },
-  watch: {
-    gameData: {
-      deep: true,
-      handler(gameData) {
-        const { firstPlayer, secondPlayer } = gameData;
-
-        if (firstPlayer.wins > this.p1) {
-          this.winHistory.push('P1');
-          this.p1 = firstPlayer.wins;
-        }
-
-        if (secondPlayer.wins > this.p2) {
-          this.winHistory.push('P2');
-          this.p2 = secondPlayer.wins;
-        }
-      },
-    },
-  },
 })
 export default class Statistics extends Vue {
   gameData!: IGameData;
-
-  p1 = 0;
-
-  p2 = 0;
-
-  winHistory = [];
 
   get totalTime(): string {
     const seconds = this.gameData ? this.gameData.totalTime.seconds : 0;
@@ -46,14 +22,31 @@ export default class Statistics extends Vue {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
-  getGameHistory(index: number): void {
-    return (this.winHistory[index - 1]);
+  getGameHistory(index: number): string {
+    if (this.gameData) {
+      if (this.gameData.gamesPlayed[index - 1] === 1) {
+        return 'P1';
+      }
+
+      if (this.gameData.gamesPlayed[index - 1] === 2) {
+        return 'P2';
+      }
+    }
+    return '';
   }
 
-  getPlayedClass(index: number): boolean {
-    if (this.gameData) return index <= this.gameData.gamesPlayed;
+  getPlayedClass(index: number): string {
+    if (this.gameData) {
+      if (this.gameData.gamesPlayed[index - 1] === 1) {
+        return 'player-1';
+      }
 
-    return false;
+      if (this.gameData.gamesPlayed[index - 1] === 2) {
+        return 'player-2';
+      }
+    }
+
+    return '';
   }
 
   getPlayerName(player: number): string {
@@ -85,7 +78,7 @@ export default class Statistics extends Vue {
         wins = secondPlayer.wins;
       }
 
-      return Math.trunc((100 * wins) / gamesPlayed) || 0;
+      return Math.trunc((100 * wins) / gamesPlayed.length) || 0;
     }
 
     return 0;

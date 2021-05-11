@@ -225,5 +225,19 @@ $grid_border: 2px solid $blue;
     padding: $container_padding_xlarge;
     padding-top: 40px;
     padding-bottom: 40px;
+    
+    .game__area {
+  
+      .game__board {
+  
+        .game__square {
+  
+          img {
+            width: 60%;
+          }
+        }
+      }
+    }
   }
+
 }

@@ -41,7 +41,7 @@ export default class Game extends Vue {
       name: 'Player 2',
       wins: 0,
     },
-    gamesPlayed: 0,
+    gamesPlayed: [],
     totalGamesPlayed: 0,
     totalWins: 5,
     totalTime: {
@@ -56,7 +56,7 @@ export default class Game extends Vue {
     if (this.gameData.hasWinner) {
       this.gameData.hasWinner = false;
 
-      this.gameData.gamesPlayed = 0;
+      this.gameData.gamesPlayed = [];
 
       this.gameData.firstPlayer.wins = 0;
 
@@ -75,7 +75,7 @@ export default class Game extends Vue {
 
     if (event?.winner === 2) this.gameData.secondPlayer.wins += 1;
 
-    if (event.winner) this.gameData.gamesPlayed += 1;
+    if (event.winner) this.gameData.gamesPlayed.push(event.winner);
 
     this.gameData.totalGamesPlayed += 1;
 

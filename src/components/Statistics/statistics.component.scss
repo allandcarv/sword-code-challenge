@@ -66,93 +66,112 @@
         span {
           font-size: 1.4rem;
 
-          &:first-of-type {
+          &.percent {
             width: 50px;
             height: 50px;
             margin: 0 auto;
             margin-bottom: 10px;
-            background-color: $dark-grey;
             line-height: 50px;
             color: $white;
             border-radius: 50%;
             font-family: 'GlacialBold', sans-serif;
+
+            &.percent-1 {
+              background-color: $blue;
+            }
+
+            &.percent-2 {
+              background-color: $yellow;
+            }
           }
         }
       }
     }
   }
 
-  .matchs {
-    text-align: center;
+  .visual__history {
     display: flex;
     flex-direction: column;
-    place-content: center;
-    margin-bottom: 40px;
+    width: 100%;
 
-    > p {
-      width: 100%;
-      margin-bottom: 20px;
-
-      strong {
-        font-family: 'GlacialBold', sans-serif;
-        font-size: 1.4rem;
-      }
-    }
-
-    .match__circles {
+    .matchs {
+      text-align: center;
       display: flex;
+      flex-direction: column;
       place-content: center;
-
-      .match__circle {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 2px solid $dark-grey;
-        
-
-        & + .match__circle {
-          margin-left: 5px;
+      margin-bottom: 40px;
+  
+      > p {
+        width: 100%;
+        margin-bottom: 20px;
+  
+        strong {
+          font-family: 'GlacialBold', sans-serif;
+          font-size: 1.4rem;
         }
-
-        &.matched {
-          background-color: $dark-grey;
+      }
+  
+      .match__circles {
+        display: flex;
+        place-content: center;
+  
+        .match__circle {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          border: 2px solid $dark-grey;
+          
+  
+          & + .match__circle {
+            margin-left: 5px;
+          }
+  
+          &.player-1 {
+            background-color: $blue;
+            border-color: $blue;
+          }
+  
+          &.player-2 {
+            background-color: $yellow;
+            border-color: $yellow;
+          }
         }
       }
     }
-  }
-
-  .history {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    place-content: center;
-    margin-bottom: 40px;
-
-    > p {
-      width: 100%;
-      margin-bottom: 20px;
-
-      strong {
-        font-family: 'GlacialBold', sans-serif;
-        font-size: 1.4rem;
-      }
-    }
-
-    .history__squares {
+  
+    .history {
+      text-align: center;
       display: flex;
+      flex-direction: column;
       place-content: center;
-
-      .history__square {
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        border: 2px solid $dark-grey;
-        font-size: 1.2rem;
-
-        & + .history__square {
-          margin-left: 5px;
+      margin-bottom: 40px;
+  
+      > p {
+        width: 100%;
+        margin-bottom: 20px;
+  
+        strong {
+          font-family: 'GlacialBold', sans-serif;
+          font-size: 1.4rem;
         }
-
+      }
+  
+      .history__squares {
+        display: flex;
+        place-content: center;
+  
+        .history__square {
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          border: 2px solid $dark-grey;
+          font-size: 1.2rem;
+  
+          & + .history__square {
+            margin-left: 5px;
+          }
+  
+        }
       }
     }
   }
@@ -173,5 +192,49 @@
         font-family: 'GlacialBold', sans-serif;
       }
     }
+  }
+}
+
+@media only screen and (min-width: $small) {
+  .statistics {
+    padding: $container_padding_small;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+@media only screen and (min-width: $large) {
+  .statistics {
+    padding: $container_padding_large;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    header {
+      width: 100%;
+    }
+
+    .victories {
+      width: 50%;
+      place-content: flex-start;
+    }
+
+    .visual__history {
+      width: 50%;
+    }
+
+    .time {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: $xlarge) {
+  .statistics {
+    padding: $container_padding_xlarge;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 }

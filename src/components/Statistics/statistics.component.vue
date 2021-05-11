@@ -9,44 +9,48 @@
       <section class="player">
         <p>{{ getPlayerName(1) }}</p>
         <div>
-          <span class="percent">{{getPercentPlayer(1)}}%</span>
+          <span class="percent percent-1">{{getPercentPlayer(1)}}%</span>
           <span class="label">V</span>
         </div>
          <div>
-          <span class="percent">{{getPercentPlayer(2)}}%</span>
+          <span class="percent percent-2">{{getPercentPlayer(2)}}%</span>
           <span class="label">L</span>
         </div>
       </section>
       <section class="player">
         <p>{{ getPlayerName(2) }}</p>
         <div>
-          <span class="percent">{{getPercentPlayer(2)}}%</span>
+          <span class="percent percent-2">{{getPercentPlayer(2)}}%</span>
           <span class="label">V</span>
         </div>
          <div>
-          <span class="percent">{{getPercentPlayer(1)}}%</span>
+          <span class="percent percent-1">{{getPercentPlayer(1)}}%</span>
           <span class="label">L</span>
         </div>
       </section>
     </article>
-    <article class="matchs">
-      <p><strong>Played matchs</strong></p>
-      <div class="match__circles">
-        <span
-          class="match__circle"
-          v-for="index in 9"
-          :key="index"
-          :class="getPlayedClass(index) ? 'matched' : ''"></span>
-      </div>
+
+    <article class="visual__history">
+      <section class="matchs">
+        <p><strong>Played matchs</strong></p>
+        <div class="match__circles">
+          <span
+            class="match__circle"
+            v-for="index in 9"
+            :key="index"
+            :class="getPlayedClass(index)"></span>
+        </div>
+      </section>
+      <section class="history">
+        <p><strong>Game history</strong></p>
+        <div class="history__squares">
+          <span class="history__square" v-for="index in 9" :key="index">
+            {{ getGameHistory(index) }}
+          </span>
+        </div>
+      </section>
     </article>
-    <article class="history">
-      <p><strong>Game history</strong></p>
-      <div class="history__squares">
-         <span class="history__square" v-for="index in 9" :key="index">
-           {{ getGameHistory(index) }}
-         </span>
-      </div>
-    </article>
+
     <article class="time">
       <p><strong>Total time</strong></p>
       <p> {{ totalTime }}</p>
