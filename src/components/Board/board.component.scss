@@ -58,6 +58,10 @@ $grid_border: 2px solid $blue;
   .game__area {
     margin-bottom: 20px;
 
+    .player-desktop {
+      display: none;
+    }
+
     .game__board {
       height: 55vh;
       display: grid;
@@ -89,6 +93,12 @@ $grid_border: 2px solid $blue;
 
     }
 
+   
+  }
+
+  .game__actions {
+    margin-bottom: 20px;
+
     button {
       width: 60%;
       height: 50px;
@@ -110,7 +120,7 @@ $grid_border: 2px solid $blue;
     display: flex;
     justify-content: space-between;
 
-    .player {
+    .player-mobile {
 
       p {
         font-family: 'GlacialBold', sans-serif;
@@ -151,6 +161,62 @@ $grid_border: 2px solid $blue;
     padding: $container_padding_large;
     padding-top: 40px;
     padding-bottom: 40px;
+
+    .game__area {
+      display: flex;
+
+      .player-desktop {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+
+        p {
+          font-family: 'GlacialBold', sans-serif;
+          font-size: 1.5rem;
+          text-align: center;
+  
+  
+          &.on__turn {
+            text-decoration: underline;
+          }
+  
+          & + p {
+            margin-top: 10px;
+            font-size: 2.5rem;
+          }
+        }
+      }
+
+      .game__board {
+        width: 50%;
+      }
+    }
+
+    .game__statistics {
+      justify-content: center;
+  
+      .player-mobile {
+         display: none;
+      }
+    }
+
+    .game__actions {
+      margin-bottom: 20px;
+  
+      button {
+        width: 30%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $large) {
+  .board {
+    padding: $container_padding_large;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
   }
 }
 

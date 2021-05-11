@@ -14,7 +14,12 @@
         >4-in-a-row</span>
       </p>
     </article>
+
     <article class="game__area">
+      <section class="player-desktop">
+        <p :class="playerOnTurn === 1 ? 'on__turn' : ''">{{ gameData.firstPlayer.name }}</p>
+        <p>{{ gameData.firstPlayer.wins }}</p>
+      </section>
       <section class="game__board" :class="gameClass">
         <div
           class="game__square"
@@ -24,17 +29,25 @@
           <img :src="getPlayerImage(index - 1)" alt="" srcset="">
         </div>
       </section>
-      <button
-        class="btn"
-        type="button"
-        :class="gameStarted ? 'started' : 'stopped'"
-        @click="setGame()"
-      >
-        {{ gameStarted ? 'Stop' : 'Start' }} Game
-      </button>
+       <section class="player-desktop">
+        <p :class="playerOnTurn === 2 ? 'on__turn' : ''">{{ gameData.secondPlayer.name }}</p>
+        <p>{{ gameData.secondPlayer.wins }}</p>
+      </section>
     </article>
+
+    <article class="game__actions">
+      <button
+          class="btn"
+          type="button"
+          :class="gameStarted ? 'started' : 'stopped'"
+          @click="setGame()"
+        >
+          {{ gameStarted ? 'Stop' : 'Start' }} Game
+        </button>
+    </article>
+
     <article class="game__statistics">
-      <section class="player">
+      <section class="player-mobile">
         <p :class="playerOnTurn === 1 ? 'on__turn' : ''">{{ gameData.firstPlayer.name }}</p>
         <p>{{ gameData.firstPlayer.wins }}</p>
       </section>
@@ -42,7 +55,7 @@
         <p class="timer">{{ totalTime }}</p>
         <p class="games__played">{{ totalGamesPlayed }}</p>
       </section>
-      <section class="player">
+      <section class="player-mobile">
         <p :class="playerOnTurn === 2 ? 'on__turn' : ''">{{ gameData.secondPlayer.name }}</p>
         <p>{{ gameData.secondPlayer.wins }}</p>
       </section>
