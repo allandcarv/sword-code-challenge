@@ -117,6 +117,11 @@ $grid_border: 2px solid $blue;
         font-size: 1.5rem;
         text-align: center;
 
+
+        &.on__turn {
+          text-decoration: underline;
+        }
+
         & + p {
           margin-top: 10px;
           font-size: 2.5rem;

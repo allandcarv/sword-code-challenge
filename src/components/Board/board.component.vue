@@ -35,13 +35,13 @@
     </article>
     <article class="game__statistics">
       <section class="player">
-        <p>{{ gameData.firstPlayer.name }}</p>
+        <p :class="playerOnTurn === 1 ? 'on__turn' : ''">{{ gameData.firstPlayer.name }}</p>
         <p>{{ gameData.firstPlayer.wins }}</p>
       </section>
       <section class="timer">
         {{ totalTime }}</section>
       <section class="player">
-        <p>{{ gameData.secondPlayer.name }}</p>
+        <p :class="playerOnTurn === 2 ? 'on__turn' : ''">{{ gameData.secondPlayer.name }}</p>
         <p>{{ gameData.secondPlayer.wins }}</p>
       </section>
     </article>

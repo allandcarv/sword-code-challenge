@@ -164,7 +164,8 @@ export default class Board extends Vue {
           i + indexRange * 2,
           i + indexRange * 3,
         ];
-        this.gameStatus = 'stopped';
+        this.stopGame();
+        this.emitGameWinner();
         break;
       }
     }
