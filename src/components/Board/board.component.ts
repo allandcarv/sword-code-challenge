@@ -73,7 +73,7 @@ export default class Board extends Vue {
       const row = this.gameArray.slice(i, i + indexRange);
 
       if (row.every((player) => player === this.playerOnTurn)) {
-        alert(`player ${this.playerOnTurn} wins`);
+        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
         const indexes = Array.from({ length: 3 }, (_, idx) => i + idx);
         this.gameWinnerIndexes = [...indexes];
         this.stopGame();
@@ -89,7 +89,7 @@ export default class Board extends Vue {
         this.gameArray[i + indexRange * 2]];
 
       if (column.every((player) => player === this.playerOnTurn)) {
-        alert(`player ${this.playerOnTurn} wins`);
+        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
         this.gameWinnerIndexes = [i, i + indexRange, i + indexRange * 2];
         this.stopGame();
         this.emitGameWinner();
@@ -104,7 +104,7 @@ export default class Board extends Vue {
     ];
 
     if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`player ${this.playerOnTurn} wins`);
+      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
       this.gameWinnerIndexes = [0, 4, 8];
       this.stopGame();
       this.emitGameWinner();
@@ -117,7 +117,7 @@ export default class Board extends Vue {
     ];
 
     if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`player ${this.playerOnTurn} wins`);
+      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
       this.gameWinnerIndexes = [2, 4, 6];
       this.stopGame();
       this.emitGameWinner();
@@ -140,7 +140,7 @@ export default class Board extends Vue {
       const row = this.gameArray.slice(i, i + indexRange);
 
       if (row.every((player) => player === this.playerOnTurn)) {
-        alert(`player ${this.playerOnTurn} wins`);
+        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
         const indexes = Array.from({ length: 4 }, (_, idx) => i + idx);
         this.gameWinnerIndexes = [...indexes];
         this.stopGame();
@@ -157,7 +157,7 @@ export default class Board extends Vue {
         this.gameArray[i + indexRange * 3]];
 
       if (column.every((player) => player === this.playerOnTurn)) {
-        alert(`player ${this.playerOnTurn} wins`);
+        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
         this.gameWinnerIndexes = [
           i,
           i + indexRange,
@@ -178,7 +178,7 @@ export default class Board extends Vue {
     ];
 
     if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`player ${this.playerOnTurn} wins`);
+      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
       this.gameWinnerIndexes = [0, 5, 10, 15];
       this.stopGame();
       this.emitGameWinner();
@@ -192,7 +192,7 @@ export default class Board extends Vue {
     ];
 
     if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`player ${this.playerOnTurn} wins`);
+      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
       this.gameWinnerIndexes = [3, 6, 9, 12];
       this.stopGame();
       this.emitGameWinner();
@@ -209,6 +209,22 @@ export default class Board extends Vue {
 
   getGameType(): number {
     return this.gameData.type;
+  }
+
+  getPlayerName(player: number): string {
+    if (this.gameData) {
+      const { firstPlayer, secondPlayer } = this.gameData;
+
+      if (player === 1) {
+        return firstPlayer.name;
+      }
+
+      if (player === 2) {
+        return secondPlayer.name;
+      }
+    }
+
+    return '';
   }
 
   getWinner(): void {
