@@ -231,17 +231,7 @@ export default class Board extends Vue {
   }
 
   setGameType(type: number): void {
-    this.gameArray = type === 1
-      ? new Array(9).fill(0)
-      : new Array(16).fill(0);
-
-    this.gameWinnerIndexes = type === 1
-      ? new Array(3).fill(-1)
-      : new Array(4).fill(-1);
-
-    this.playerOnTurn = 1;
-
-    this.gameStatus = 'stopped';
+    this.stopGame();
 
     this.$emit('gameType', type);
   }
