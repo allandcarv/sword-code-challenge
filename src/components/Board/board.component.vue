@@ -20,7 +20,7 @@
           class="game__square"
           v-for="index in gameSize"
           :key="index"
-          @click="setPlayer(index - 1)">
+          @click="registerMove(index - 1)">
           <img :src="getPlayerImage(index - 1)" alt="" srcset="">
         </div>
       </section>
@@ -38,8 +38,10 @@
         <p :class="playerOnTurn === 1 ? 'on__turn' : ''">{{ gameData.firstPlayer.name }}</p>
         <p>{{ gameData.firstPlayer.wins }}</p>
       </section>
-      <section class="timer">
-        {{ totalTime }}</section>
+      <section class="game">
+        <p class="timer">{{ totalTime }}</p>
+        <p class="games__played">{{ gamesPlayed }}</p>
+      </section>
       <section class="player">
         <p :class="playerOnTurn === 2 ? 'on__turn' : ''">{{ gameData.secondPlayer.name }}</p>
         <p>{{ gameData.secondPlayer.wins }}</p>

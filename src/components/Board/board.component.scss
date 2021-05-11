@@ -129,9 +129,20 @@ $grid_border: 2px solid $blue;
       }
     }
 
-    .timer {
-      font-size: 1.3rem;
+    .game {
+      
+      .timer {
+        margin-bottom: 10px;;
+        font-size: 1.3rem;
+      }
+
+      .games__played {
+        font-family: 'GlacialBold', sans-serif;
+        font-size: 1.2rem;
+        text-align: center;
+      }
     }
+
   }
 }
 

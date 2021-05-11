@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { Options, Vue } from 'vue-class-component';
 
+import * as toast from '@/utils/toast';
+
 // Interfaces
 import { IGameData } from '@/interfaces/game-data.interface';
 
@@ -30,6 +32,8 @@ export default class Board extends Vue {
   gameStatus: GameStatus = 'stopped';
 
   gameWinnerIndexes!: number[];
+
+  gamesPlayed = 0;
 
   playerOnTurn = 1;
 
@@ -65,7 +69,8 @@ export default class Board extends Vue {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
-  private checkFirstTypeGame(): void {
+  private checkFirstTypeGame(): boolean {
+    let hasWinner = false;
     const indexRange = 3;
     const lastIndex = 3 * 3 - 1;
 
@@ -73,66 +78,70 @@ export default class Board extends Vue {
       const row = this.gameArray.slice(i, i + indexRange);
 
       if (row.every((player) => player === this.playerOnTurn)) {
-        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
+        hasWinner = true;
         const indexes = Array.from({ length: 3 }, (_, idx) => i + idx);
-        this.gameWinnerIndexes = [...indexes];
-        this.stopGame();
-        this.emitGameWinner();
+        this.setWinner(indexes);
         break;
       }
     }
 
-    for (let i = 0; i < indexRange; i += 1) {
-      const column = [
-        this.gameArray[i],
-        this.gameArray[i + indexRange],
-        this.gameArray[i + indexRange * 2]];
+    if (!hasWinner) {
+      for (let i = 0; i < indexRange; i += 1) {
+        const column = [
+          this.gameArray[i],
+          this.gameArray[i + indexRange],
+          this.gameArray[i + indexRange * 2]];
 
-      if (column.every((player) => player === this.playerOnTurn)) {
-        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
-        this.gameWinnerIndexes = [i, i + indexRange, i + indexRange * 2];
-        this.stopGame();
-        this.emitGameWinner();
-        break;
+        if (column.every((player) => player === this.playerOnTurn)) {
+          hasWinner = true;
+          const indexes = [i, i + indexRange, i + indexRange * 2];
+          this.setWinner(indexes);
+          break;
+        }
       }
     }
 
-    const firstDiagonal = [
-      this.gameArray[0],
-      this.gameArray[4],
-      this.gameArray[8],
-    ];
+    if (!hasWinner) {
+      const firstDiagonal = [
+        this.gameArray[0],
+        this.gameArray[4],
+        this.gameArray[8],
+      ];
 
-    if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
-      this.gameWinnerIndexes = [0, 4, 8];
-      this.stopGame();
-      this.emitGameWinner();
+      if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
+        hasWinner = true;
+        const indexes = [0, 4, 8];
+        this.setWinner(indexes);
+      }
     }
 
-    const secondDiagonal = [
-      this.gameArray[2],
-      this.gameArray[4],
-      this.gameArray[6],
-    ];
+    if (!hasWinner) {
+      const secondDiagonal = [
+        this.gameArray[2],
+        this.gameArray[4],
+        this.gameArray[6],
+      ];
 
-    if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
-      this.gameWinnerIndexes = [2, 4, 6];
-      this.stopGame();
-      this.emitGameWinner();
+      if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
+        hasWinner = true;
+        const indexes = [2, 4, 6];
+        this.setWinner(indexes);
+      }
     }
 
     const lastMove = this.gameArray.every((index) => index !== 0);
-    const hasWinner = this.gameWinnerIndexes.every((index) => index !== -1);
 
     if (lastMove && !hasWinner) {
-      alert('Draw Game');
+      toast.info('Draw Game');
       this.stopGame();
+      this.gamesPlayed += 1;
     }
+
+    return hasWinner;
   }
 
-  private checkSecondTypeGame(): void {
+  private checkSecondTypeGame(): boolean {
+    let hasWinner = false;
     const indexRange = 4;
     const lastIndex = 4 * 4 - 1;
 
@@ -140,71 +149,73 @@ export default class Board extends Vue {
       const row = this.gameArray.slice(i, i + indexRange);
 
       if (row.every((player) => player === this.playerOnTurn)) {
-        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
+        hasWinner = true;
         const indexes = Array.from({ length: 4 }, (_, idx) => i + idx);
-        this.gameWinnerIndexes = [...indexes];
-        this.stopGame();
-        this.emitGameWinner();
+        this.setWinner(indexes);
         break;
       }
     }
 
-    for (let i = 0; i < indexRange; i += 1) {
-      const column = [
-        this.gameArray[i],
-        this.gameArray[i + indexRange],
-        this.gameArray[i + indexRange * 2],
-        this.gameArray[i + indexRange * 3]];
+    if (!hasWinner) {
+      for (let i = 0; i < indexRange; i += 1) {
+        const column = [
+          this.gameArray[i],
+          this.gameArray[i + indexRange],
+          this.gameArray[i + indexRange * 2],
+          this.gameArray[i + indexRange * 3]];
 
-      if (column.every((player) => player === this.playerOnTurn)) {
-        alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
-        this.gameWinnerIndexes = [
-          i,
-          i + indexRange,
-          i + indexRange * 2,
-          i + indexRange * 3,
-        ];
-        this.stopGame();
-        this.emitGameWinner();
-        break;
+        if (column.every((player) => player === this.playerOnTurn)) {
+          hasWinner = true;
+          const indexes = [
+            i,
+            i + indexRange,
+            i + indexRange * 2,
+            i + indexRange * 3,
+          ];
+          this.setWinner(indexes);
+          break;
+        }
       }
     }
 
-    const firstDiagonal = [
-      this.gameArray[0],
-      this.gameArray[5],
-      this.gameArray[10],
-      this.gameArray[15],
-    ];
+    if (!hasWinner) {
+      const firstDiagonal = [
+        this.gameArray[0],
+        this.gameArray[5],
+        this.gameArray[10],
+        this.gameArray[15],
+      ];
 
-    if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
-      this.gameWinnerIndexes = [0, 5, 10, 15];
-      this.stopGame();
-      this.emitGameWinner();
+      if (firstDiagonal.every((player) => player === this.playerOnTurn)) {
+        hasWinner = true;
+        const indexes = [0, 5, 10, 15];
+        this.setWinner(indexes);
+      }
     }
 
-    const secondDiagonal = [
-      this.gameArray[3],
-      this.gameArray[6],
-      this.gameArray[9],
-      this.gameArray[12],
-    ];
+    if (!hasWinner) {
+      const secondDiagonal = [
+        this.gameArray[3],
+        this.gameArray[6],
+        this.gameArray[9],
+        this.gameArray[12],
+      ];
 
-    if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
-      alert(`${this.getPlayerName(this.playerOnTurn)} wins`);
-      this.gameWinnerIndexes = [3, 6, 9, 12];
-      this.stopGame();
-      this.emitGameWinner();
+      if (secondDiagonal.every((player) => player === this.playerOnTurn)) {
+        hasWinner = true;
+        const indexes = [3, 6, 9, 12];
+        this.setWinner(indexes);
+      }
     }
 
     const lastMove = this.gameArray.every((index) => index !== 0);
-    const hasWinner = this.gameWinnerIndexes.every((index) => index !== -1);
 
     if (lastMove && !hasWinner) {
-      alert('Draw Game');
+      toast.info('Draw Game');
       this.stopGame();
     }
+
+    return hasWinner;
   }
 
   getGameType(): number {
@@ -227,16 +238,18 @@ export default class Board extends Vue {
     return '';
   }
 
-  getWinner(): void {
+  checkWinner(): boolean {
     const gameType = this.gameData.type;
 
     if (gameType === 1) {
-      this.checkFirstTypeGame();
+      return this.checkFirstTypeGame();
     }
 
     if (gameType === 2) {
-      this.checkSecondTypeGame();
+      return this.checkSecondTypeGame();
     }
+
+    return false;
   }
 
   emitGameWinner(): void {
@@ -262,11 +275,15 @@ export default class Board extends Vue {
     }
   }
 
-  setPlayer(index: number): void {
+  registerMove(index: number): void {
     if (this.gameStatus === 'started') {
-      this.gameArray[index] = this.playerOnTurn;
-      this.getWinner();
-      this.playerOnTurn = this.playerOnTurn === 1 ? 2 : 1;
+      if (!this.gameArray[index]) {
+        this.gameArray[index] = this.playerOnTurn;
+
+        const hasWinner = this.checkWinner();
+
+        if (!hasWinner) this.playerOnTurn = this.playerOnTurn === 1 ? 2 : 1;
+      }
     }
   }
 
@@ -276,6 +293,14 @@ export default class Board extends Vue {
     } else {
       this.startGame();
     }
+  }
+
+  setWinner(indexes: number[]): void {
+    toast.info(`${this.getPlayerName(this.playerOnTurn)} wins`);
+    this.gameWinnerIndexes = [...indexes];
+    this.stopGame();
+    this.emitGameWinner();
+    this.gamesPlayed += 1;
   }
 
   startCounter(): void {
