@@ -70,12 +70,12 @@ export default class Game extends Vue {
     let hours = timer.hours + this.gameData.totalTime.hours;
 
     if (seconds >= 60) {
-      minutes += seconds / 60;
+      minutes += Math.trunc(seconds / 60);
       seconds %= 60;
     }
 
     if (minutes >= 60) {
-      hours += minutes / 60;
+      hours += Math.trunc(minutes / 60);
       minutes %= 60;
     }
 
